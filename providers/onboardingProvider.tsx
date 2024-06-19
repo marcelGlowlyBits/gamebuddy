@@ -1,29 +1,7 @@
 import * as React from 'react'
 
 import { storeUser } from '@/queries/user'
-
-type SetUsernameAction = {
-  type: 'SET_USERNAME'
-  payload: string
-}
-
-type SetGenreAction = {
-  type: 'SET_GENRE'
-  payload: string
-}
-
-type SetRangeAction = {
-  type: 'SET_RANGE'
-  payload: number
-}
-
-type State = {
-  username: string
-  genre: string
-  range: number
-}
-
-type Action = SetUsernameAction | SetGenreAction | SetRangeAction
+import { State, Action } from './types'
 
 const initialState: State = {
   username: '',
@@ -63,6 +41,7 @@ export function OnboardingProvider({ children }: { children: React.ReactNode }) 
   }
 
   const confirmOnboarding = (value: number) => {
+    // @Note: add onboarded boolean to flag user as onboarded
     storeUser({ ...state, range: value, onboarded: true })
   }
 

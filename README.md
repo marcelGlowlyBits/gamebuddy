@@ -1,50 +1,54 @@
-# Welcome to your Expo app 👋
+# Welcome to Gamebuddy 👋
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+## Introduction
 
-## Get started
+Game Buddy is een app waarmee je andere gamers kan vinden waarmee je samen kan spelen. Tijdens de onboarding geef je aan wat je voorkeuren zijn.
 
-1. Install dependencies
+## Getting started
+
+1. Installeer dependencies
 
    ```bash
    npm install
    ```
 
-2. Start the app
+2. Start de app
 
    ```bash
     npx expo start
    ```
 
-In the output, you'll find options to open the app in a
+De expo terminal biedt je een aantal opties aan:
 
 - [development build](https://docs.expo.dev/develop/development-builds/introduction/)
 - [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
 - [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
 - [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+Deze sample app is volledig gebouwd binnen de Expo Go omgeving.
 
-## Get a fresh project
-
-When you're ready, run:
-
-```bash
-npm run reset-project
-```
-
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
-
-## Learn more
-
-To learn more about developing your project with Expo, look at the following resources:
+## Bronnen
 
 - [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
 
-## Join the community
+## Project structuur
 
-Join our community of developers creating universal apps.
+## Imports
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+Met behulp van configuratie in `tsconfig.json` is er gebruik gemaakt van import aliases. Dit voorkomt lange import paden in componenten en houdt de code leesbaarder.
+
+### Components
+
+De `components` folder is voor alle componenten die over de gehele applicatie, meerdere keren gebruikt worden. Alle componenten binnen deze folder houden zelf geen state vast. En zijn volledig configureerbaar door slim gebruik te maken van props. Met deze gedachtegang maakt het niet uit waar je een component plaatst.
+
+### Features
+
+Deze folder bevat een eigen folder per `use case`. In het geval van gamebuddy is het invoeren van een gebruikersnaam een use case. Het fijne hiervan is dat het mogelijk is om code die bij elkaar hoort, binnen een folder te hebben. In het geval van `gamesGenreForm` zijn de formulier opties daar ook te vinden.
+
+### Hooks
+
+Hier worden hooks geplaatst die op meerdere plekken in de applicatie gebruikt kunnen worden. In dit geval wordt er alleen user data opgehaald met behulp van een hook. Het is een bewuste keuze om de `querie` apart te houden van de hook.
+
+### Queries
+
+Per entity, in dit geval `user`, worden hier de queries geplaatst. In dit geval is de local storage onze database.

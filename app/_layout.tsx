@@ -1,37 +1,65 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import { useFonts } from 'expo-font';
-import { Stack } from 'expo-router';
-import * as SplashScreen from 'expo-splash-screen';
-import { useEffect } from 'react';
-import 'react-native-reanimated';
+import * as React from "react";
+import { Slot, useRouter } from "expo-router";
+import * as SplashScreen from "expo-splash-screen";
+import { SafeAreaProvider } from "react-native-safe-area-context";
 
-import { useColorScheme } from '@/hooks/useColorScheme';
+import {
+  Poppins_400Regular,
+  Poppins_600SemiBold,
+  Poppins_700Bold,
+  useFonts,
+} from "@expo-google-fonts/poppins";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
+const InitialLayout = () => {
+  const router = useRouter();
+
+  React.useEffect(() => {
+    // Here you can check if the user is onboarded or authenticated.
+    router.replace("/(tabs)");
+  }, []);
+
+  return <Slot />;
+};
+
 export default function RootLayout() {
-  const colorScheme = useColorScheme();
-  const [loaded] = useFonts({
-    SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
+  const [appReady, setAppReady] = React.useState(false);
+  let [fontsLoaded, fontError] = useFonts({
+    Poppins_400Regular,
+    Poppins_700Bold,
+    Poppins_600SemiBold,
   });
 
-  useEffect(() => {
-    if (loaded) {
-      SplashScreen.hideAsync();
+  React.useEffect(() => {
+    async function prepare() {
+      try {
+        // We can do some async stuff here to prepare the app on launch.
+        await SplashScreen.preventAutoHideAsync();
+      } catch (e) {
+        console.error(e);
+      } finally {
+        setAppReady(true);
+      }
     }
-  }, [loaded]);
 
-  if (!loaded) {
+    prepare();
+  }, []);
+
+  const onLayoutRootView = React.useCallback(async () => {
+    if (appReady) {
+      await SplashScreen.hideAsync();
+    }
+  }, [appReady]);
+
+  if (!appReady || !fontsLoaded || fontError) {
     return null;
   }
 
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="+not-found" />
-      </Stack>
-    </ThemeProvider>
+    <SafeAreaProvider onLayout={onLayoutRootView}>
+      <InitialLayout />
+    </SafeAreaProvider>
   );
 }

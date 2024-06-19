@@ -14,7 +14,6 @@ export const Button = React.forwardRef(
     {
       title = 'Button',
       secondary = false,
-      brand = false,
       onPress,
       style,
       disabled,
@@ -72,6 +71,8 @@ const useStyles = ({
   StyleSheet.create({
     buttonPressable: {
       borderWidth: 1,
+      alignSelf: 'center',
+      minWidth: 48,
       borderColor: disabled || loading ? Colors.lightGray : Colors.brand,
       color: Colors.text.white,
       maxWidth: 382,
@@ -80,7 +81,6 @@ const useStyles = ({
       alignItems: 'center',
       justifyContent: 'center',
       borderRadius: 16,
-      width: 'auto',
       backgroundColor:
         disabled || loading
           ? Colors.lightGray

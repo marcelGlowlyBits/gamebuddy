@@ -4,7 +4,9 @@
     "strict": true,
     "paths": {
       "@/*": ["./*"],
-      "@typography/*": ["./components/typography/*"]
+      "@typography/*": ["./components/typography/*"],
+      "@interaction/*": ["./components/interaction/*"],
+      "@features/*": ["./features/*"]
     }
   },
   "include": ["**/*.ts", "**/*.tsx", ".expo/types/**/*.ts", "expo-env.d.ts"]

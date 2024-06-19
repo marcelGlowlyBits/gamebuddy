@@ -8,11 +8,12 @@ import { useOnboarding } from '@/providers/onboardingProvider'
 import { TravelDistance } from '@features/travelDistance'
 
 export default function PreferenceScreen3() {
-  const { genre } = useOnboarding()
+  const { genre, confirmOnboarding } = useOnboarding()
   const router = useRouter()
 
-  const handleNavigation = () => {
-    router.replace('/(tabs)')
+  const handleConfirmOnboarding = () => {
+    confirmOnboarding()
+    // router.replace('/(tabs)')
   }
 
   return (
@@ -25,7 +26,7 @@ export default function PreferenceScreen3() {
         <Text>
           {`Hoever wil je maximaal reizen om samen met iemand ${genre} games te spelen?`}
         </Text>
-        <TravelDistance onNextStep={handleNavigation} />
+        <TravelDistance onNextStep={handleConfirmOnboarding} />
       </ScrollView>
     </View>
   )

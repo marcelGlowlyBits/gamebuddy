@@ -47,6 +47,7 @@ const onboardingContext = React.createContext({
   genre: initialState.genre,
   range: initialState.range,
   onboardingAction: ({ type, payload }: Action) => {},
+  confirmOnboarding: () => {},
 })
 
 export function OnboardingProvider({ children }: { children: React.ReactNode }) {
@@ -59,8 +60,15 @@ export function OnboardingProvider({ children }: { children: React.ReactNode }) 
     dispatch(action)
   }
 
+  const confirmOnboarding = () => {
+    console.log('Onboarding completed')
+    console.log(state)
+  }
+
   return (
-    <onboardingContext.Provider value={{ ...state, onboardingAction }}>
+    <onboardingContext.Provider
+      value={{ ...state, onboardingAction, confirmOnboarding }}
+    >
       {children}
     </onboardingContext.Provider>
   )

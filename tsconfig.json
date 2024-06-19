@@ -6,7 +6,10 @@
       "@/*": ["./*"],
       "@typography/*": ["./components/typography/*"],
       "@interaction/*": ["./components/interaction/*"],
-      "@features/*": ["./features/*"]
+      "@types/*": ["./types/*"],
+      "@queries/*": ["./queries/*"],
+      "@features/*": ["./features/*"],
+      "@hooks/*": ["./hooks/*"]
     }
   },
   "include": ["**/*.ts", "**/*.tsx", ".expo/types/**/*.ts", "expo-env.d.ts"]

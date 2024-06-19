@@ -3,24 +3,33 @@ import { View, StyleSheet, ScrollView, ActivityIndicator } from 'react-native'
 import { Colors } from '@/constants/Colors'
 import { Title } from '@/components/typography/Title'
 import { Text } from '@/components/typography/Text'
+import { Button } from '@/components/interaction/Button'
 
 import { useUser } from '@hooks/useUser'
+import { disableOnboarded } from '@queries/user'
 
-export default function HomeScreen() {
+export default function TabTwoScreen() {
   const { user, isLoading } = useUser()
+
+  const handleOnboarded = () => {
+    disableOnboarded()
+  }
 
   return (
     <View style={styles.container}>
       <ScrollView style={styles.scrollView}>
-        <Title>Home</Title>
+        <Title>Settings</Title>
         {isLoading ? (
           <ActivityIndicator size="large" color={Colors.brand} />
         ) : (
-          <View style={styles.contentContainer}>
-            <Title size={24}>Welkom terug, {user?.username}</Title>
-            <Text>
-              {`Klaar om ${user?.genre} games te spelen met andere mensen binnen een straal van ${user?.range} km?`}
-            </Text>
+          <View style={styles.flexContainer}>
+            <View style={styles.contentContainer}>
+              <Text>{`Gekozen genre: ${user?.genre}`}</Text>
+              <Text>{`Gekozen range: ${user?.range} km`}</Text>
+              <Text>{`Gebruikersnaam: ${user?.username}`}</Text>
+              <Text>{`is Onboarded: ${user?.onboarded}`}</Text>
+            </View>
+            <Button title="disable onboarded" onPress={handleOnboarded} />
           </View>
         )}
       </ScrollView>
@@ -40,5 +49,8 @@ const styles = StyleSheet.create({
   contentContainer: {
     gap: 15,
     marginTop: 15,
+  },
+  flexContainer: {
+    gap: 35,
   },
 })

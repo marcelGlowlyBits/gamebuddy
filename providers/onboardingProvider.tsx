@@ -1,5 +1,7 @@
 import * as React from 'react'
 
+import { storeUser } from '@/queries/user'
+
 type SetUsernameAction = {
   type: 'SET_USERNAME'
   payload: string
@@ -47,7 +49,7 @@ const onboardingContext = React.createContext({
   genre: initialState.genre,
   range: initialState.range,
   onboardingAction: ({ type, payload }: Action) => {},
-  confirmOnboarding: () => {},
+  confirmOnboarding: (value: number) => {},
 })
 
 export function OnboardingProvider({ children }: { children: React.ReactNode }) {
@@ -60,9 +62,8 @@ export function OnboardingProvider({ children }: { children: React.ReactNode }) 
     dispatch(action)
   }
 
-  const confirmOnboarding = () => {
-    console.log('Onboarding completed')
-    console.log(state)
+  const confirmOnboarding = (value: number) => {
+    storeUser({ ...state, range: value, onboarded: true })
   }
 
   return (

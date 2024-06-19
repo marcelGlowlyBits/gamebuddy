@@ -9,22 +9,27 @@ import {
   Poppins_700Bold,
   useFonts,
 } from '@expo-google-fonts/poppins'
+import { useUser } from '@/hooks/useUser'
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync()
-const onboarded = false
 
 const InitialLayout = () => {
+  const { user, isLoading } = useUser()
   const router = useRouter()
 
   React.useEffect(() => {
+    const onboarded = user?.onboarded
+
+    if (isLoading) return
+
     // Here you can check if the user is onboarded or authenticated.
     if (!onboarded) {
       router.replace('/(onboarding)')
     } else {
       router.replace('/(tabs)')
     }
-  }, [])
+  }, [user, isLoading])
 
   return <Slot />
 }

@@ -8,14 +8,14 @@ import { Button } from '@interaction/Button'
 import { useOnboarding } from '@/providers/onboardingProvider'
 
 export const TravelDistance = ({ onNextStep }: { onNextStep: () => void }) => {
-  const { range, onboardingAction } = useOnboarding()
+  const { range, onboardingAction, confirmOnboarding } = useOnboarding()
   const [value, setValue] = React.useState(range)
 
   const handleNextStep = () => {
-    onboardingAction({
-      type: 'SET_RANGE',
-      payload: value,
-    })
+    onboardingAction({ type: 'SET_RANGE', payload: value })
+
+    confirmOnboarding(value)
+
     onNextStep()
   }
 

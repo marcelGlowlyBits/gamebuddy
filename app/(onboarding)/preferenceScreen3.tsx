@@ -8,12 +8,11 @@ import { useOnboarding } from '@/providers/onboardingProvider'
 import { TravelDistance } from '@features/travelDistance'
 
 export default function PreferenceScreen3() {
-  const { genre, confirmOnboarding } = useOnboarding()
+  const { genre } = useOnboarding()
   const router = useRouter()
 
   const handleConfirmOnboarding = () => {
-    confirmOnboarding()
-    // router.replace('/(tabs)')
+    router.replace('/(tabs)')
   }
 
   return (
